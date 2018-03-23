@@ -7,12 +7,14 @@ import subprocess
 
 NA_SCORE = "N/A"
 
-pylint_score = re.compile('Your code has been rated at (\S+)/(\S+)')
+pylintScore = re.compile(r'Your code has been rated at (\S+)/(\S+)')
 
 # TODO change working directory to repo root?
 
 try:
-    files = subprocess.check_output(["git", "diff", "--name-only", "origin/master..."]).strip().split("\n")
+    files = subprocess.check_output(["git", "diff", "--name-only", "origin/master..."])\
+            .strip()\
+            .split("\n")
 except subprocess.CalledProcessError:
     files = []
 
@@ -24,17 +26,17 @@ table = []
 for f in files:
     try:
         analysis = subprocess.check_output(
-                ["pylint", "--rcfile=.pylintrc", f],
-                stderr=subprocess.STDOUT,
-                universal_newlines = True)
-    except subprocess.CalledProcessError as x:
-        analysis = x.output
+            ["pylint", "--rcfile=.pylintrc", f],
+            stderr=subprocess.STDOUT,
+            universal_newlines=True)
+    except subprocess.CalledProcessError as exc:
+        analysis = exc.output
 
-    scorematch = re.search(pylint_score, analysis)
+    scoreMatch = re.search(pylintScore, analysis)
 
-    if scorematch:
-        numer = scorematch.group(1)
-        denom = scorematch.group(2)
+    if scoreMatch:
+        numer = scoreMatch.group(1)
+        denom = scoreMatch.group(2)
 
         score = numer + "/" + denom
 
