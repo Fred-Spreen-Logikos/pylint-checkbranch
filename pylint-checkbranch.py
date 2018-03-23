@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 
+# Fred Spreen <fspreen@logikos.com>
+# 23 March 2018
+
 from __future__ import print_function
 
 import re
