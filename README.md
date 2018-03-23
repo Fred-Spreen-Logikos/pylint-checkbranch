@@ -9,7 +9,7 @@ Markdown.
 ## Features ##
 * Outputs a GitHub-flavored Markdown table
 * Escapes underscores in filenames to avoid embarrassing italics
-* Emojis supplement indicate score quality for quick reference
+* Emojis supplement score quality for quick reference
 * Automatically uses the `.pylintrc` file
 
 ## Caveats ##
