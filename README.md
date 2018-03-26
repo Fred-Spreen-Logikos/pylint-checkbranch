@@ -9,8 +9,9 @@ Markdown.
 ## Features ##
 * Outputs a GitHub-flavored Markdown table
 * Escapes underscores in filenames to avoid embarrassing italics
+* Emojis as icons for file status (added, changed, deleted)
 * Emojis supplement score quality for quick reference
-* Automatically uses the `.pylintrc` file
+* Automatically uses the `.pylintrc` file in the repo root
 
 ## Caveats ##
 I made this on my lunch break, so it's not very well tested.  There are a
@@ -30,24 +31,24 @@ Invoking the script:
 
 Here's an example of the output:
 ```
-| File Name                             | Pylint Score   |
-| ------------------------------------- | -------------- |
-| StationConfig/conf\_example.py        | -50.00/10 :x:  |
-| Test/BluetoothTests/\_\_init\_\_.py   | N/A            |
-| Test/BluetoothTests/test\_bt\_sink.py | 7.76/10        |
-| lib/BluetoothSupport.py               | 9.79/10 :star: |
-| lib/ConfigReader.py                   | 7.98/10        |
+| Status            | File Name                             | Pylint Score   |
+| ----------------- | ------------------------------------- | -------------- |
+| :heavy_plus_sign: | lib/BluetoothSupport.py               | 9.79/10 :star: |
+| :m:               | lib/ConfigReader.py                   | 7.98/10        |
+| :m:               | StationConfig/conf\_example.py        | -50.00/10 :x:  |
+| :heavy_plus_sign: | Test/BluetoothTests/\_\_init\_\_.py   | N/A            |
+| :heavy_plus_sign: | Test/BluetoothTests/test\_bt\_sink.py | 7.76/10        |
 ```
 
 And here's the table it produces on GitHub:
 
-| File Name                             | Pylint Score   |
-| ------------------------------------- | -------------- |
-| StationConfig/conf\_example.py        | -50.00/10 :x:  |
-| Test/BluetoothTests/\_\_init\_\_.py   | N/A            |
-| Test/BluetoothTests/test\_bt\_sink.py | 7.76/10        |
-| lib/BluetoothSupport.py               | 9.79/10 :star: |
-| lib/ConfigReader.py                   | 7.98/10        |
+| Status            | File Name                             | Pylint Score   |
+| ----------------- | ------------------------------------- | -------------- |
+| :heavy_plus_sign: | lib/BluetoothSupport.py               | 9.79/10 :star: |
+| :m:               | lib/ConfigReader.py                   | 7.98/10        |
+| :m:               | StationConfig/conf\_example.py        | -50.00/10 :x:  |
+| :heavy_plus_sign: | Test/BluetoothTests/\_\_init\_\_.py   | N/A            |
+| :heavy_plus_sign: | Test/BluetoothTests/test\_bt\_sink.py | 7.76/10        |
 
 ## Contact ##
 You can reach me at fspreen@logikos.com or Fred\_Spreen@bose.com and I'll put

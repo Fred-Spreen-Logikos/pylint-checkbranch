@@ -21,10 +21,11 @@ except subprocess.CalledProcessError:
     repoRoot = None
 
 try:
-    files = subprocess.check_output(
-            ["git", "diff", "--name-only", "origin/master..."],
+    lines = subprocess.check_output(
+            ["git", "diff", "--name-status", "origin/master..."],
             cwd=repoRoot
             ).strip().split("\n")
+    files = [x.split(None,1) for x in lines]
 except subprocess.CalledProcessError:
     files = []
 
@@ -33,7 +34,7 @@ files.sort()
 
 table = []
 
-for f in files:
+for st,f in files:
     try:
         analysis = subprocess.check_output(
             ["pylint", "--rcfile=.pylintrc", f],
@@ -67,23 +68,40 @@ for f in files:
         score = "???"
 
     escaped_fname = re.sub('_', '\\_', f)
-    table.append((escaped_fname, score))
+
+    status_emoji = ""
+    if st == "A":
+        # Added
+        status_emoji = ":heavy_plus_sign:"
+    elif st == "D":
+        # Deleted
+        status_emoji = ":x:"
+    elif st == "M":
+        # Modified
+        status_emoji = ":m:"
+    # For full list of status fields:  man git-diff; search for diff-filter
+
+    table.append((status_emoji, escaped_fname, score))
 
 
-max_fname = max([3, len("File Name"), max([len(t[0]) for t in table])])
-max_score = max([3, len("Pylint Score"), max([len(t[1]) for t in table])])
+max_status = max([3, len("Status"), max([len(t[0]) for t in table])])
+max_fname = max([3, len("File Name"), max([len(t[1]) for t in table])])
+max_score = max([3, len("Pylint Score"), max([len(t[2]) for t in table])])
 
 # Header
-print("| {0} | {1} |".format(
+print("| {0} | {1} | {2} |".format(
+    str.ljust("Status", max_status),
     str.ljust("File Name", max_fname),
     str.ljust("Pylint Score", max_score)))
 
 # Divider
-print("| {0} | {1} |".format(
+print("| {0} | {1} | {2} |".format(
+    '-' * max_status,
     '-' * max_fname,
     '-' * max_score))
 
 for t in table:
-    print("| {0} | {1} |".format(
-        str.ljust(t[0], max_fname),
-        str.ljust(t[1], max_score)))
+    print("| {0} | {1} | {2} |".format(
+        str.ljust(t[0], max_status),
+        str.ljust(t[1], max_fname),
+        str.ljust(t[2], max_score)))
