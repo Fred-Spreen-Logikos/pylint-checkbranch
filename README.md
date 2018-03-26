@@ -17,8 +17,7 @@ I made this on my lunch break, so it's not very well tested.  There are a
 number of current shortcomings.  In no particular order:
 
 * Filename sorting may be case-sensitive
-* MUST be run from the repository root!
-* Can only find `.pylintrc` in the working directory
+* Can only find `.pylintrc` in the repository root
 * Absent `.pylintrc` file may cause errors
 * Assumes that `pylint` and `git` commands are available
 * Developed and used in a wholly Unix-like environment (not tested in Windows)

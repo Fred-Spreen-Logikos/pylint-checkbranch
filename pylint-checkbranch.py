@@ -15,9 +15,16 @@ pylintScore = re.compile(r'Your code has been rated at (\S+)/(\S+)')
 # TODO change working directory to repo root?
 
 try:
-    files = subprocess.check_output(["git", "diff", "--name-only", "origin/master..."])\
-            .strip()\
-            .split("\n")
+    repoRoot = subprocess.check_output(["git", "rev-parse", "--show-toplevel"])\
+            .strip()
+except subprocess.CalledProcessError:
+    repoRoot = None
+
+try:
+    files = subprocess.check_output(
+            ["git", "diff", "--name-only", "origin/master..."],
+            cwd=repoRoot
+            ).strip().split("\n")
 except subprocess.CalledProcessError:
     files = []
 
@@ -31,7 +38,8 @@ for f in files:
         analysis = subprocess.check_output(
             ["pylint", "--rcfile=.pylintrc", f],
             stderr=subprocess.STDOUT,
-            universal_newlines=True)
+            universal_newlines=True,
+            cwd=repoRoot)
     except subprocess.CalledProcessError as exc:
         analysis = exc.output
 
