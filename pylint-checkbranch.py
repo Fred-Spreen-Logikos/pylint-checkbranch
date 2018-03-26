@@ -29,8 +29,7 @@ try:
 except subprocess.CalledProcessError:
     files = []
 
-# TODO better sorting?
-files.sort()
+files.sort(lambda a,b: cmp(a[1].lower(), b[1].lower()))
 
 table = []
 
