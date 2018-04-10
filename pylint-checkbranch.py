@@ -68,19 +68,19 @@ for st,f in files:
 
     escaped_fname = re.sub('_', '\\_', f)
 
-    status_emoji = ""
+    status_word = ""
     if st == "A":
         # Added
-        status_emoji = ":heavy_plus_sign:"
+        status_word = "NEW"
     elif st == "D":
         # Deleted
-        status_emoji = ":x:"
+        status_word = "removed"
     elif st == "M":
         # Modified
-        status_emoji = ":m:"
+        status_word = "changed"
     # For full list of status fields:  man git-diff; search for diff-filter
 
-    table.append((status_emoji, escaped_fname, score))
+    table.append((status_word, escaped_fname, score))
 
 
 max_status = max([3, len("Status"), max([len(t[0]) for t in table])])
