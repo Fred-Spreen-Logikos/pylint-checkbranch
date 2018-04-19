@@ -9,6 +9,7 @@ import re
 import subprocess
 
 NA_SCORE = "N/A"
+STAR_LEVEL = 8.0
 
 pylintScore = re.compile(r'Your code has been rated at (\S+)/(\S+)')
 
@@ -53,7 +54,7 @@ for st,f in files:
 
         if float(numer) == 10.00:
             score = score + " :star: :100:"
-        elif float(numer) >= 8.00:
+        elif float(numer) >= STAR_LEVEL:
             score = score + " :star:"
         elif float(numer) < 0:
             score = score + " :x:"
